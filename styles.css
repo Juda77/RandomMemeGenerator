@@ -1,0 +1,12 @@
+/*Name: Juda Fernandez
+*May 6, 2021
+*Section: AM - Fadel
+*Description: CSS file for my random meme generator webpage.
+*Provides styling for my webpage by making the
+*background red.
+*/
+
+
+body {
+  background-color: darkred;
+}

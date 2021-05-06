@@ -94,7 +94,8 @@
    * there's really no way for the user to give incorrect
    * input since there's just a button click, but I may
    * add more complex interactivity later
-   * @param {Error} error
+   * @param {Error} error - gets the error/exception
+   * that resulted out of the fetch request process
    */
   function handleError(error) {
 
@@ -105,7 +106,8 @@
     htmlBody.appendChild(errorMessageElement);
 
     const milisecondsOut = 2000;
-    //after 2 seconds, remove the error message
+
+    // after 2 seconds, remove the error message
     setTimeout(() => {
       htmlBody.removeChild(htmlBody.lastChild);
     }, milisecondsOut);

@@ -68,9 +68,9 @@
     image.src = meme;
     image.alt = "lol funny meme XD";
 
-    let htmlBody = qs("body");
-    htmlBody.appendChild(paragraph);
-    htmlBody.appendChild(image);
+    let htmlBody = qs("article");
+    htmlBody.prepend(image);
+    htmlBody.prepend(paragraph);
   }
 
   /**
@@ -102,7 +102,7 @@
     let errorMessage = "Sorry, but your input is invalid. Please try again.";
     let errorMessageElement = document.createElement("p");
     errorMessageElement.textContent = errorMessage + error;
-    let htmlBody = qs("body");
+    let htmlBody = qs("article");
     htmlBody.appendChild(errorMessageElement);
 
     const milisecondsOut = 2000;

@@ -7,7 +7,7 @@
  *and making API calls to get randomly generated memes
  */
 
-"use strict"; //"use strict" makes JS stricter when pointing out errors
+"use strict"; // "use strict" makes JS stricter when pointing out errors
 
 /**
  * this anonymous function just automatically gets called from the getgo
@@ -15,10 +15,10 @@
  */
 (function() {
 
-  //initiate this JS file only after the DOM has finished and page is fully loaded
+  // initiate this JS file only after the DOM has finished and page is fully loaded
   window.addEventListener('load', init);
 
-  //base URL for the meme API
+  // base URL for the meme API
   const BASE_URL = "https://api.imgflip.com/get_memes";
 
   /**
@@ -32,14 +32,19 @@
     qs("button").addEventListener('click', makeRequest);
   }
 
+  /**
+   * Standard async/await function for fetch calls.
+   * Makes a fetch request, validates the status of
+   * that request, converts it to JSON, then initializes
+   * the processing of that JSON
+   */
   async function makeRequest() {
     try {
       let response = await fetch(BASE_URL);
-      console.log("non json response: " + response);
       statusCheck(response);
       let responseJSON = await response.json();
       processData(responseJSON);
-    } catch(error) {
+    } catch (error) {
       handleError(error);
     }
   }
@@ -51,9 +56,8 @@
    */
   function processData(response) {
 
-    console.log(response);
-
-    let randomMemeIndex = Math.floor(Math.random() * 100);
+    const upperBound = 100;
+    let randomMemeIndex = Math.floor(Math.random() * upperBound);
     let memeName = response.data.memes[randomMemeIndex].name;
     let meme = response.data.memes[randomMemeIndex].url;
 
@@ -73,6 +77,7 @@
    * checks the status of the response
    * this is the function that was given
    * in class
+   * @param {Response} response - response given back by the web service
    */
   async function statusCheck(response) {
     if (!response.ok) {
@@ -93,23 +98,25 @@
    */
   function handleError(error) {
 
-    let errorMessage = "Sorry, but your input is invalid. Please try again";
+    let errorMessage = "Sorry, but your input is invalid. Please try again.";
     let errorMessageElement = document.createElement("p");
-    errorMessageElement.textContent = errorMessage;
+    errorMessageElement.textContent = errorMessage + error;
     let htmlBody = qs("body");
     htmlBody.appendChild(errorMessageElement);
 
+    const milisecondsOut = 2000;
     //after 2 seconds, remove the error message
     setTimeout(() => {
       htmlBody.removeChild(htmlBody.lastChild);
-    }, 2000);
+    }, milisecondsOut);
   }
 
   /**
    * Takes a specified selector as a param, then gets the
    * html element that has that specific selector as a tag
-   * @param {String} selector
-   * @returns html element that has the tag specified by the
+   * @param {String} selector - selector specified by the caller  of
+   * this function
+   * @returns {Element} - html element that has the tag specified by the
    * selector param
    */
   function qs(selector) {
